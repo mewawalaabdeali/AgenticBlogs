@@ -1,37 +1,29 @@
-import sys
-import os
+import os, sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from src.llms.OpenAIllm import Openllm
-
+from src.nodes.blognode import BlogNode
+from src.states.blogState import BlogState
 import streamlit as st
 from src.ui.streamlit.loadui import LoadStreamlitUI
+from src.graphs.graphbuilder import GraphBuilder
 
 ui = LoadStreamlitUI()
 user_controls = ui.load_streamlit_ui()
 
 #creating initial state
-initial_state = {
-    "topic": user_controls["topic"],
-    "model_name":user_controls["selected_model"]
-
+state:BlogState = {
+    "topic":user_controls["topic"],
 }
 
-llm = Openllm().get_llm(initial_state["model_name"])
-if user_controls.get("OPENAI_API_KEY"):
-    st.success("API key loaded successfully")
-if user_controls.get("topic") and user_controls.get("OPENAI_API_KEY"):
-    if st.button("Generate Blog"):
-        topic = initial_state["topic"]
-        prompt = f"""Write a short blog on the topic: "{topic}".
-        The blog should include:
-        - A title
-        - An engaging introduction
-        - Two main points
-        - A conclusion
-        
-        Write in a friendly, human language, professional tone."""
+llm = Openllm().get_llm(user_controls["selected_model"])
+graph_builder = GraphBuilder(llm)
+graph = graph_builder.setup_graph(user_controls["selected_usecase"])
+rstate = graph.invoke(state)
 
-        response = llm.invoke(prompt)
 
-        st.subheader("Generated Blog: ")
-        st.markdown(response.content)
+#Display
+st.subheader(rstate["blog"].title)
+st.markdown(rstate["blog"].content)
+
+st.success("Blog Published Successfully! 🚀")
+st.markdown(f"[Read your blog on DEV.to]({rstate['published_url']})")

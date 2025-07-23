@@ -1,6 +1,7 @@
 from typing import TypedDict, Optional, List
 from pydantic import BaseModel, Field
 
+
 class Blog(BaseModel):
     title:str=Field(description="the  tile of the blog post")
     content:str=Field(description="the main content of the blog post")
