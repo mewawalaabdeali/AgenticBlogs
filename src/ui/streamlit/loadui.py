@@ -36,7 +36,8 @@ class LoadStreamlitUI:
 
             self.user_controls["run_graph"] = st.button("Generate Blog")
 
-            
+            #Trigger Blog publishing
+            self.user_controls["publish_blog"] = st.button("Publish Blog to Dev.to")
 
         return self.user_controls
 

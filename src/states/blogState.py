@@ -11,7 +11,8 @@ class BlogState(TypedDict, total=False):
     blog:Blog
     youtube_link:Optional[str]
     transcript: Optional[str]
-    chunks: Optional[List[str]]
+    retriever_context: Optional[List[str]]
+    web_results:Optional[str]
     draft: Optional[str]
     revised:Optional[str]
     approved:Optional[bool]

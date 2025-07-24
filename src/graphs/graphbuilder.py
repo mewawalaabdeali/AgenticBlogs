@@ -6,6 +6,7 @@ from src.nodes.publishnode import PublishNode
 from src.nodes.youtubeblog import YtBlogNode
 from src.nodes.youtubenode import TranscriptNode
 
+
 class GraphBuilder:
     def __init__(self, llm):
         self.llm = llm
@@ -32,15 +33,20 @@ class GraphBuilder:
     def youtubeGraph(self):
         self.transcript_node = TranscriptNode()
         self.yt_blognode = YtBlogNode(self.llm)
+        self.publishNode = PublishNode()
 
         self.graph.add_node("fetch_transcript", self.transcript_node.generate_transcript)
         self.graph.add_node("generate_blog", self.yt_blognode.blog_creation)
+        self.graph.add_node("publishBlog", self.publishNode.publish_blog)
 
         self.graph.add_edge(START, "fetch_transcript")
         self.graph.add_edge("fetch_transcript", "generate_blog")
-        self.graph.add_edge("generate_blog", END)
+        self.graph.add_edge("generate_blog", "publishBlog")
+        self.graph.add_edge("publishBlog", END)
 
-        return self.graph
+        self.workflow = self.graph.compile(interrupt_before=["publishBlog"])
+
+        return self.workflow
 
 
     
