@@ -9,3 +9,4 @@ uvicorn
 watchdog
 langgraph-cli[inmem]
 streamlit
+youtube-transcript-api

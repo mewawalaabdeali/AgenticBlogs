@@ -9,6 +9,7 @@ class Blog(BaseModel):
 class BlogState(TypedDict, total=False):
     topic:str
     blog:Blog
+    youtube_link:Optional[str]
     transcript: Optional[str]
     chunks: Optional[List[str]]
     draft: Optional[str]

@@ -3,6 +3,8 @@ from src.llms.OpenAIllm import Openllm
 from src.states.blogState import BlogState
 from src.nodes.blognode import BlogNode
 from src.nodes.publishnode import PublishNode
+from src.nodes.youtubeblog import YtBlogNode
+from src.nodes.youtubenode import TranscriptNode
 
 class GraphBuilder:
     def __init__(self, llm):
@@ -27,8 +29,21 @@ class GraphBuilder:
 
         return self.graph
     
-    def youtubGraph(self):
-        pass
+    def youtubeGraph(self):
+        self.transcript_node = TranscriptNode()
+        self.yt_blognode = YtBlogNode(self.llm)
+
+        self.graph.add_node("fetch_transcript", self.transcript_node.generate_transcript)
+        self.graph.add_node("generate_blog", self.yt_blognode.blog_creation)
+
+        self.graph.add_edge(START, "fetch_transcript")
+        self.graph.add_edge("fetch_transcript", "generate_blog")
+        self.graph.add_edge("generate_blog", END)
+
+        return self.graph
+
+
+    
     def articlegraph(self):
         pass
 
