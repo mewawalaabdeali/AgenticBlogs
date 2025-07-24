@@ -16,7 +16,7 @@ class PublishNode:
         tags: List[str] = ["ai", "agents", "automation", "bloggen"]
 
         headers = {
-            "api_key":self.api_key,
+            "api-key":self.api_key,
             "Content-Type": "application/json"
         }
 

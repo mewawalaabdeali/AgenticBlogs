@@ -1,5 +1,6 @@
 from langchain_community.tools.tavily_search import TavilySearchResults
 from langchain_community.tools.wikipedia.tool import WikipediaQueryRun
+from langchain_community.utilities.wikipedia import WikipediaAPIWrapper
 from langchain_community.tools.arxiv.tool import ArxivQueryRun
 from langchain.agents import Tool
 def get_webtools():
@@ -16,7 +17,7 @@ def get_webtools():
     #Wikipedia Search tool
     wikipedia_tool = Tool(
         name="Wikipedia Search",
-        func=WikipediaQueryRun(),
+        func=WikipediaQueryRun(api_wrapper=WikipediaAPIWrapper()),
         description="Use this tool to get encyclopedia-style summaries or historical facts"
     )
 

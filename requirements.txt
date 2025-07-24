@@ -10,3 +10,8 @@ watchdog
 langgraph-cli[inmem]
 streamlit
 youtube-transcript-api
+faiss-gpu
+tiktoken
+wikipedia
+arxiv
+langchain-tavily

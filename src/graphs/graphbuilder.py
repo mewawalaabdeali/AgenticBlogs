@@ -5,6 +5,7 @@ from src.nodes.blognode import BlogNode
 from src.nodes.publishnode import PublishNode
 from src.nodes.youtubeblog import YtBlogNode
 from src.nodes.youtubenode import TranscriptNode
+from src.nodes.retriever_context import retrieve_context
 
 
 class GraphBuilder:
@@ -36,11 +37,13 @@ class GraphBuilder:
         self.publishNode = PublishNode()
 
         self.graph.add_node("fetch_transcript", self.transcript_node.generate_transcript)
+        self.graph.add_node("retrieve_context", retrieve_context)
         self.graph.add_node("generate_blog", self.yt_blognode.blog_creation)
         self.graph.add_node("publishBlog", self.publishNode.publish_blog)
 
         self.graph.add_edge(START, "fetch_transcript")
-        self.graph.add_edge("fetch_transcript", "generate_blog")
+        self.graph.add_edge("fetch_transcript", "retrieve_context")
+        self.graph.add_edge("retrieve_context", "generate_blog")
         self.graph.add_edge("generate_blog", "publishBlog")
         self.graph.add_edge("publishBlog", END)
 

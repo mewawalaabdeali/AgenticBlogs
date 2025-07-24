@@ -33,7 +33,7 @@ class TranscriptNode:
     def fetch_transcript(self, video_id:str)->str:
         """Use Youtube transcript api to fetch transcript"""
         try:
-            print(f"youou: {video_id}")
+            print(f"This is the VideoID: {video_id}")
             transcript = ytt_api.fetch(video_id)
             return ' '.join([item.text for item in transcript])
         except Exception as e:

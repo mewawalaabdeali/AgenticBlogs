@@ -15,14 +15,14 @@ class BlogContextBuilder:
         chunks = splitter.create_documents([self.transcript])
 
         embeddings = OpenAIEmbeddings(model='text-embedding-ada-002')
-        vector_store = FAISS.from_documents(chunks, embeddings=embeddings)
+        vector_store = FAISS.from_documents(chunks, embedding=embeddings)
         return vector_store
     
     
     
     def get_context(self, query:str, k:int=4)->str:
         """Retrieves top-k relevant chunks based on a query"""
-        retriever = self.store.as_retriever(search_kwargs = {"k":k})
+        retriever = self.store.as_retriever(search_type = 'similarity',search_kwargs = {"k":k})
         documents = retriever.invoke(query)
         context = "\n\n".join([doc.page_content for doc in documents])
         return context
