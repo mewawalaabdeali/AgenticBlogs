@@ -5,7 +5,7 @@ def yt_blog_prompt():
         template = 
         """You are an expert blog content writer with 20 years in the field.
             Use Markdown formatting.
-            Providing you with 2 inputs : {context} & {web_result}
+            Providing you with 2 inputs : {context} & {web_results}
             {context} contains the data from the youtube video and {web_results} contain the citation for the {context}
             Generate a blog title for the {context}. This title should be creative and SEO friendly
             Generate a detailed blog content with detailed breakdown for the {context} & {web_results} provided.

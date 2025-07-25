@@ -15,3 +15,4 @@ def citation_prompt():
         input_variables=['retrieved_context'],
         validate_template=True
     )
+    return prompt
