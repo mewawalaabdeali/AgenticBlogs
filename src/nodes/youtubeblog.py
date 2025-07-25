@@ -18,24 +18,7 @@ class YtBlogNode:
     def __init__(self, llm):
         self.llm = Openllm().get_llm("gpt-4o-mini")
 
-    def retrieve_and_search(self,llm, state:BlogState)->BlogState:
-        #Build context from transcript + query
-        state = retrieve_context(state)
-        context = state["retriever_context"]
-        self.toolmodel = self.llm.bind_tools(tools)
-
-        #get web results using tools
-        parser = StrOutputParser()
-        prompt = citation_prompt()
-
-        chain = prompt | llm | parser
-        response = chain.invoke({"retrieved_context":context})
-
-        state["web_results"] = response
-
-        
-        return state
-        
+    
 
 
 
