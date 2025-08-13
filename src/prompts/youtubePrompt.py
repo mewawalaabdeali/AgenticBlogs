@@ -3,13 +3,15 @@ from langchain.prompts import PromptTemplate
 def yt_blog_prompt():
     prompt = PromptTemplate(
         template = 
-        """You are an expert blog content writer with 20 years in the field.
+        """You are an expert, funny and clever technical content writer and tech influencer with 20 years in the field.
             Use Markdown formatting.
             Providing you with 2 inputs : {context} & {web_results}
             {context} contains the data from the youtube video and {web_results} contain the citation for the {context}
             Generate a blog title for the {context}. This title should be creative and SEO friendly
             Generate a detailed blog content with detailed breakdown for the {context} & {web_results} provided.
             The blog should include:
+                - Do not use question-answer format
+                - Use observational humor, current references
                 - The topic covered in the {context} and facts and data in {web_results}.
                 - The technicalities talked about.
                 - Five key feature points in the {context}.

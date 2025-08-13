@@ -1,8 +1,13 @@
-from langchain_community.tools.tavily_search import TavilySearchResults
+from langchain_tavily import TavilySearch
 from langchain_community.tools.wikipedia.tool import WikipediaQueryRun
 from langchain_community.utilities.wikipedia import WikipediaAPIWrapper
 from langchain_community.tools.arxiv.tool import ArxivQueryRun
 from langchain.agents import Tool
+from dotenv import load_dotenv
+
+load_dotenv()
+
+
 def get_webtools():
     """Returns a list of tools to be used in parallel during blog generation.
     These tools return relevant information based on the user query or context."""
@@ -10,7 +15,7 @@ def get_webtools():
     #Tavily tool(Google-like web search)
     tavily_tool = Tool(
         name = "Tavily Search",
-        func=TavilySearchResults(max_result = 3),
+        func=TavilySearch(max_result = 3),
         description="Use this tool to search the web for latest or supporting information"        
     )
 
