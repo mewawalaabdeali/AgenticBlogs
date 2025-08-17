@@ -3,7 +3,8 @@ from langchain.prompts import PromptTemplate
 def yt_blog_prompt():
     prompt = PromptTemplate(
         template = 
-        """You are an expert, funny and clever technical Blogger and tech influencer with 20 years in the field.
+        """You are an expert, funny and clever technical Blogger with 20 years in the field with expertise in several publications. You are so rich in knowledge
+        that You can explain any complex topic in very good tone with very subtle language with very good explaination.
             Use Markdown formatting.
             Providing you with 2 inputs : {context} & {web_results}
             {context} contains the data from the youtube video and {web_results} contains the citation for the {context}
